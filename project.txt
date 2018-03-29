@@ -1,0 +1,54 @@
+import cx_Oracle
+con =cx_Oracle.connect('system/nivae')
+cur=con.cursor()
+print("***********************************************************")
+print("WELCOME TO ONLINE COURSES!!!!")
+print("FEEL FREE TO LEARN")
+print("***********************************************************")
+#print("user must enter the name and id")
+username=input("enter the user name:")
+userid=input("enter the user id:")
+#PRINT("THE AVAILABLE COURSES GET DISPLAYED")
+print("------------------------------------------------------------")
+print(" C O U R S E S - A V A I L A B L E ")
+print("------------------------------------------------------------")
+cur.execute("""select * from course""")
+con.commit()
+knw=cur.fetchall()
+for n in knw:
+    print("courselist:",n[0])
+    print("courseid:",n[1])
+print("------------------------------------------------------------")
+#print("user must enter the course name")
+coursename=input("enter the coursename:")
+cur.execute('INSERT INTO publicuser VALUES(:1,:2,:3)',(username,userid,coursename))
+import webbrowser
+if (coursename=="java"):
+    urls = ['http://www.java.com/',
+        'https://www.tutorialspoint.com/java/',
+        'https://www.guru99.com/java-tutorial.html']
+
+    for url in urls:
+        webbrowser.open_new_tab(url)
+elif (coursename=="python"):
+    urls = ['https://www.tutorialspoint.com/python/',
+        'https://www.learnpython.org/',
+        'http://docs.python.org/2/library/webbrowser.html']
+
+    for url in urls:
+        webbrowser.open_new_tab(url)
+else:
+    if(coursename=="clanguage"):
+        urls = ['http://www.clanguage.com/',
+        'https://www.tutorialspoint.com/cprogramming',
+        'https://www.programiz.com/c-programming/examples']
+
+    for url in urls:
+        webbrowser.open_new_tab(url)
+
+
+print("T H A N K Y O U!!!!....")
+con.commit()
+con.close()
+    
+    
